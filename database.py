@@ -1,5 +1,6 @@
 import pymysql
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
@@ -70,9 +71,8 @@ class DataBase():
 
     def get_vebinar_by_id(self, vebinar_id: int):
         self.cur.execute(
-            "SELECT * FROM vebinar WHERE vebinar_id = %s", (panel_id))
+            "SELECT * FROM vebinar WHERE vebinar_id = %s", (vebinar_id))
         panel = [a for a in self.cur.fetchone()]
-        panel[1] = self.json.loads(panel[1])
         return panel
 
     def get_feeds_from_one_user(self, user_id: int):
@@ -86,8 +86,5 @@ class DataBase():
     def get_vebinar_all(self):
         self.cur.execute("SELECT * FROM vebinar")
         result = [[b for b in a] for a in self.cur.fetchall()]
-
-        for elem in result:
-            elem[1] = self.json.loads(elem[1])
         return (result)
     
