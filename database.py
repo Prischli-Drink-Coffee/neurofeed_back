@@ -13,7 +13,7 @@ class DataBase():
          (vebinar_id INT AUTO_INCREMENT PRIMARY KEY,
          name VARCHAR(255) UNIQUE NOT NULL) ''')
         self.cur.execute(
-            '''CREATE TABLE IF NOT EXISTS user
+            '''CREATE TABLE IF NOT EXISTS users
              (user_id INT AUTO_INCREMENT PRIMARY KEY,
              username VARCHAR(255) UNIQUE NOT NULL,
              hashed_password VARCHAR(255))''')
@@ -27,14 +27,14 @@ class DataBase():
              vebinar_id INT,
              user_id INT,
              FOREIGN KEY (vebinar_id) REFERENCES vebinar(vebinar_id),
-             FOREIGN KEY (user_id) REFERENCES user(user_id)
+             FOREIGN KEY (user_id) REFERENCES users(user_id)
              )''')
         self.cur.execute('''CREATE TABLE IF NOT EXISTS vebinar_user
          (vebinar_user_id INT AUTO_INCREMENT PRIMARY KEY, 
         vebinar_id INT,
          user_id INT,
          FOREIGN KEY (vebinar_id) REFERENCES vebinar(vebinar_id),
-         FOREIGN KEY (user_id) REFERENCES user(user_id)) ''')
+         FOREIGN KEY (user_id) REFERENCES users(user_id)) ''')
 
         self.con.commit()
 
@@ -43,21 +43,21 @@ class DataBase():
                          (username, hashed_password))
         self.cur.execute("SELECT LAST_INSERT_ID()")
         self.con.commit()
-        return (self.cur.fetchall())
+        return (self.cur.fetchone())
 
     def add_vebinar(self, name: str):
         self.cur.execute("INSERT INTO vebinar (name) VALUES (%s)",
                          (name))
         self.cur.execute("SELECT LAST_INSERT_ID()")
         self.con.commit()
-        return (self.cur.fetchall())
+        return (self.cur.fetchone())
 
     def add_feed(self, feedback: str, userful: bool, emotion: int, keypoint: str, vebinar_id: int, user_id: int):
         self.cur.execute("INSERT INTO feed (feedback, userful, emotion, keypoint, vebinar_id, user_id) VALUES (%s, %s, %s, %s, %s, %s)",
                          (feedback, userful, emotion, keypoint, vebinar_id, user_id))
         self.cur.execute("SELECT LAST_INSERT_ID()")
         self.con.commit()
-        return (self.cur.fetchall())
+        return (self.cur.fetchone())
 
     def get_user_by_id(self, user_id: int):
         self.cur.execute(
