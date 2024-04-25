@@ -3,9 +3,6 @@ import dotenv
 import os
 
 dotenv.load_dotenv()
-from dotenv import load_dotenv
-import os
-
 
 class DataBase():
     def __init__(self, host: str = os.getenv("host"), user: str = os.getenv("user"), password: str = os.getenv("password"), database: str = os.getenv("database")):
