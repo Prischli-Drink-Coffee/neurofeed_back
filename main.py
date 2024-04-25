@@ -56,7 +56,7 @@ async def add_user(user: User, credentials: JwtAuthorizationCredentials = Securi
 
 
 @app.get("/user/get_user/{id}")
-async def get_user_by_id(id: int, credentials: JwtAuthorizationCredentials = Security(access_security)):
+async def get_user_by_id(id: int):
     return id
 
 
@@ -66,7 +66,7 @@ async def add_vebinar(vebinar: Vebinar, credentials: JwtAuthorizationCredentials
 
 
 @app.get("/vebinar/get_vebinar/{id}")
-async def get_vebinar_by_id(id: int, credentials: JwtAuthorizationCredentials = Security(access_security)):
+async def get_vebinar_by_id(id: int):
     return id
 
 
@@ -76,7 +76,7 @@ async def add_feed(feed: Feed, credentials: JwtAuthorizationCredentials = Securi
 
 
 @app.get("/feed/get_feed/{id}")
-async def get_feed_by_id(id: int, credentials: JwtAuthorizationCredentials = Security(access_security)):
+async def get_feed_by_id(id: int):
     return id
 
 @app.get("/vebinar/get_all")
