@@ -3,6 +3,8 @@ import dotenv
 import os
 
 dotenv.load_dotenv()
+from dotenv import load_dotenv
+import os
 
 
 class DataBase():
@@ -72,6 +74,7 @@ class DataBase():
 
     def get_vebinar_by_id(self, vebinar_id: int):
         self.cur.execute(
+            "SELECT * FROM vebinar WHERE vebinar_id = %s", (vebinar_id))
             "SELECT * FROM vebinar WHERE vebinar_id = %s", (vebinar_id))
         panel = [a for a in self.cur.fetchone()]
         return panel
