@@ -78,3 +78,15 @@ async def add_feed(feed: Feed, credentials: JwtAuthorizationCredentials = Securi
 @app.get("/feed/get_feed/{id}")
 async def get_feed_by_id(id: int, credentials: JwtAuthorizationCredentials = Security(access_security)):
     return id
+
+@app.get("/vebinar/get_all")
+async def get_all_feeds():
+    return ['vebinars']
+
+@app.get("/feed/from_user/{user_id}")
+async def get_feeds_from_user(user_id: int):
+    return user_id
+
+@app.get("/feed/for_vebinar/{vebinar_id}")
+async def get_feeds_for_vebinar(vebinar_id:int):
+    return vebinar_id
