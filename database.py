@@ -22,13 +22,13 @@ class DataBase():
              (feed_id INT AUTO_INCREMENT PRIMARY KEY,
              feedback VARCHAR(255),
              userful BOOL,
-             emotion ENUM(0, 1, 2),
-             keypoint VARCHAR(255)
+             emotion int,
+             keypoint VARCHAR(255),
              vebinar_id INT,
              user_id INT,
              FOREIGN KEY (vebinar_id) REFERENCES vebinar(vebinar_id),
              FOREIGN KEY (user_id) REFERENCES user(user_id))
-             )''')
+             ''')
         self.cur.execute('''CREATE TABLE IF NOT EXISTS vebinar_user
          (vebinar_id INT AUTO_INCREMENT PRIMARY KEY,
          vebiar_id INT,
