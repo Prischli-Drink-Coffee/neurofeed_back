@@ -38,17 +38,19 @@ class DataBase():
 
         self.con.commit()
 
-    def add_user(self, username: str, hashed_password: str):
+    def add_user(self, username: str, hashed_password: str, vebinar_id: int):
         self.cur.execute("INSERT INTO users (username, hashed_password) VALUES (%s,%s)",
                          (username, hashed_password))
         self.cur.execute("SELECT LAST_INSERT_ID()")
+        self.cur.execute("INSERT INTO vebinar_user (user_id, vebinar_id) VALUES (%s, %s)", (self.cur.fetchone()[0], vebinar_id))
         self.con.commit()
         return (self.cur.fetchone())
 
-    def add_vebinar(self, name: str):
+    def add_vebinar(self, name: str, user_id:int):
         self.cur.execute("INSERT INTO vebinar (name) VALUES (%s)",
                          (name))
         self.cur.execute("SELECT LAST_INSERT_ID()")
+        self.cur.execute("INSERT INTO vebinar_user (user_id, vebinar_id) VALUES (%s, %s)", (user_id, self.cur.fetchone()[0]))
         self.con.commit()
         return (self.cur.fetchone())
 
@@ -72,8 +74,7 @@ class DataBase():
     def get_vebinar_by_id(self, vebinar_id: int):
         self.cur.execute(
             "SELECT * FROM vebinar WHERE vebinar_id = %s", (vebinar_id))
-        panel = [a for a in self.cur.fetchone()]
-        return panel
+        return (self.cur.fetchone())
 
     def get_feeds_from_one_user(self, user_id: int):
         self.cur.execute("SELECT * FROM feed WHERE user_id = %s", (user_id))
